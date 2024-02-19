@@ -1,0 +1,23 @@
+# Ignora arquivos específicos do Visual Studio
+*.suo
+*.user
+*.sln
+*.tmp
+*.vspscc
+*.cache
+*.dbmdl
+*.lock
+.vs
+
+# Ignora arquivos de log
+*.log
+
+# Ignora arquivos de saída
+bin/
+obj/
+
+# Ignora arquivos de cache do NuGet
+packages/
+
+# Ignora arquivos de cobertura de código
+coverage/
