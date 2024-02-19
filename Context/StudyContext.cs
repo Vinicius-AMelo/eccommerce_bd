@@ -10,5 +10,6 @@ namespace E_Commerce.Context
         }
 
         public DbSet<Product> product { get; set; }
+        public DbSet<Category> category { get; set; }
     }
 }
