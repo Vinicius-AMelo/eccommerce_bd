@@ -10,8 +10,6 @@ namespace E_Commerce.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<Product> products { get; set; }
-
-
+        // public ICollection<Product> products { get; set; }
     }
 }

@@ -32,5 +32,9 @@ namespace E_Commerce.Models
         public int quantity { get; set; }
 
         public List<string> Tags { get; set; }
+
+        // public int CategoryId { get; set; }
+
+        // public Category? Category { get; set; }
     }
 }

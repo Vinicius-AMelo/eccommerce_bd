@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using E_Commerce.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_Commerce.Migrations
 {
     [DbContext(typeof(StudyContext))]
-    partial class StudyContextModelSnapshot : ModelSnapshot
+    [Migration("20240221210557_ajusteTabelas")]
+    partial class ajusteTabelas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +49,9 @@ namespace E_Commerce.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -82,7 +88,25 @@ namespace E_Commerce.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("product");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.Product", b =>
+                {
+                    b.HasOne("E_Commerce.Models.Category", "Category")
+                        .WithMany("products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("E_Commerce.Models.Category", b =>
+                {
+                    b.Navigation("products");
                 });
 #pragma warning restore 612, 618
         }
