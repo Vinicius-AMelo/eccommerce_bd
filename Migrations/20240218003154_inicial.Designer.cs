@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace E_Commerce.Migrations
 {
-    [DbContext(typeof(StudyContext))]
+    [DbContext(typeof(StoreContext))]
     [Migration("20240218003154_inicial")]
     partial class inicial
     {

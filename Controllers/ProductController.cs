@@ -1,6 +1,7 @@
 ﻿using E_Commerce.Context;
 using E_Commerce.Interfaces;
 using E_Commerce.Models;
+using E_Commerce.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,19 +12,19 @@ namespace E_Commerce.Controllers;
 public class ProductController : Controller
 
 {
-    protected readonly StudyContext _context;
+    protected readonly IProductRepository<Product> _repository;
     protected readonly IUpdateService<Product> _updateService;
 
-    public ProductController(StudyContext context, IUpdateService<Product> updateService)
+    public ProductController(IProductRepository<Product> repository, IUpdateService<Product> updateService)
     {
-        _context = context;
+        _repository = repository;
         _updateService = updateService;
     }
 
     [HttpGet("{id:int}")]
     public ActionResult<Product> GetById(int id)
     {
-        Product entity = _context.Set<Product>().Find(id);
+        Product? entity = _repository.GetById(id);
 
         if (entity == null) return NoContent();
         return entity;
@@ -32,38 +33,31 @@ public class ProductController : Controller
     [HttpGet]
     public IEnumerable<Product> GetAll()
     {
-        return _context.Set<Product>().ToArray();
+        return _repository.GetAll();
     }
 
     [HttpPost]
-    public Product Add([FromBodyAttribute]Product entity)
+    public ActionResult<Product> Add([FromBodyAttribute]Product entity)
     {
-        _context.Set<Product>().Add(entity);
-        _context.SaveChanges();
-        return entity;
+        if (entity == null) return BadRequest();
+        return _repository.Add(entity);
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult<Product> Update(int id, [FromBodyAttribute]Product entity){
+    public ActionResult<Product> Update(int id, [FromBodyAttribute]Product updatedEntity){
+        if (updatedEntity == null) return NoContent();
+
+        Product? entity = _repository.Update(id, updatedEntity);
         if (entity == null) return NoContent();
-
-        Product existingProduct = _context.Set<Product>().Find(id);
-        if (existingProduct == null) return NoContent();
-
-        Product updatedEntity = _updateService.UpdateEntity(existingProduct, entity);
-        _context.Update(updatedEntity);
-        _context.SaveChanges();
-        return updatedEntity;
+        return entity;
     }
 
     [HttpDelete("{id:int}")]
     public ActionResult<Product> Delete(int id)
     {
-        Product entity = _context.Set<Product>().Find(id);
+        Product? entity = _repository.Delete(id);
 
         if (entity == null) return NoContent();
-        _context.Set<Product>().Remove(entity);
-        _context.SaveChanges();
-        return Ok();
+        return entity;
     }
 }

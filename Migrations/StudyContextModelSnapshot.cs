@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace E_Commerce.Migrations
 {
-    [DbContext(typeof(StudyContext))]
+    [DbContext(typeof(StoreContext))]
     partial class StudyContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

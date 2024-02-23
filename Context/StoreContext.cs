@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.Context
 {
-    public class StudyContext : DbContext
+    public class StoreContext : DbContext
     {
-        public StudyContext(DbContextOptions<StudyContext> options) : base(options)
+        public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {
         }
 

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_Commerce.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240221215447_removeRelation")]
-    partial class removeRelation
+    [Migration("20240223202106_newContext")]
+    partial class newContext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace E_Commerce.Migrations
 {
-    [DbContext(typeof(StudyContext))]
+    [DbContext(typeof(StoreContext))]
     [Migration("20240219193432_adicionarNovosCamposTabelaProduto")]
     partial class adicionarNovosCamposTabelaProduto
     {
